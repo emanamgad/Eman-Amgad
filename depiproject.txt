@@ -1,0 +1,197 @@
+Microsoft Windows [Version 10.0.19045.5011]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\alnada>aws configure
+AWS Access Key ID [****************GPJO]: ASIAVDX2XVYU3VVSGPJO
+AWS Secret Access Key [****************pLup]: UDwUBwf+vEKTb5MEeIuYIM5LcYcoALWBvQ3epLup
+Default region name [us-east-1]:
+Default output format [json]:
+
+C:\Users\alnada>aws ec2 create-vpc --cidr-block 10.0.0.0/16
+{
+    "Vpc": {
+        "CidrBlock": "10.0.0.0/16",
+        "DhcpOptionsId": "dopt-074e5d509a0df5168",
+        "State": "pending",
+        "VpcId": "vpc-00847c100e2bf3501",
+        "OwnerId": "351639416361",
+        "InstanceTenancy": "default",
+        "Ipv6CidrBlockAssociationSet": [],
+        "CidrBlockAssociationSet": [
+            {
+                "AssociationId": "vpc-cidr-assoc-0a48a3ba649223fe6",
+                "CidrBlock": "10.0.0.0/16",
+                "CidrBlockState": {
+                    "State": "associated"
+                }
+            }
+        ],
+        "IsDefault": false
+    }
+}
+
+
+C:\Users\alnada>aws ec2 create-tags --resources vpc-00847c100e2bf3501  --tags Key=Name,Value=Lab vpc
+
+Error parsing parameter '--tags': Expected: '=', received: 'EOF' for input:
+vpc
+   ^
+
+C:\Users\alnada>aws ec2 create-tags --resources vpc-00847c100e2bf3501  --tags Key=Name,Value=Labvpc
+
+C:\Users\alnada>aws ec2 modify-vpc-attribute --vpc-00847c100e2bf3501 --enable-dns-hostnames
+
+usage: aws [options] <command> <subcommand> [<subcommand> ...] [parameters]
+To see help text, you can run:
+
+  aws help
+  aws <command> help
+  aws <command> <subcommand> help
+
+aws: error: the following arguments are required: --vpc-id
+
+
+C:\Users\alnada>aws ec2 modify-vpc-attribute vpc-00847c100e2bf3501 --enable-dns-hostnames
+
+usage: aws [options] <command> <subcommand> [<subcommand> ...] [parameters]
+To see help text, you can run:
+
+  aws help
+  aws <command> help
+  aws <command> <subcommand> help
+
+aws: error: the following arguments are required: --vpc-id
+
+
+C:\Users\alnada>aws ec2 modify-vpc-attribute --vpc-id vpc-00847c100e2bf3501  --enable-dns-hostnames
+
+C:\Users\alnada>aws ec2 create-subnet --vpc-id vpc-00847c100e2bf3501  --cidr-block 10.0.1.0/24 --availability-zone us-east-1a  --tag-specifications 'ResourceType=subnet,Tags=[{Key=Name,Value=Public Subnet}]'
+
+Error parsing parameter '--tag-specifications': Expected: '=', received: ''' for input:
+'ResourceType=subnet,Tags=[{Key=Name,Value=Public
+^
+
+C:\Users\alnada>aws ec2 create-subnet --vpc-id vpc-00847c100e2bf3501  --cidr-block 10.0.1.0/24 --availability-zone us-east-1a
+{
+    "Subnet": {
+        "AvailabilityZone": "us-east-1a",
+        "AvailabilityZoneId": "use1-az6",
+        "AvailableIpAddressCount": 251,
+        "CidrBlock": "10.0.1.0/24",
+        "DefaultForAz": false,
+        "MapPublicIpOnLaunch": false,
+        "State": "available",
+        "SubnetId": "subnet-07e55bb98df767428",
+        "VpcId": "vpc-00847c100e2bf3501",
+        "OwnerId": "351639416361",
+        "AssignIpv6AddressOnCreation": false,
+        "Ipv6CidrBlockAssociationSet": [],
+        "SubnetArn": "arn:aws:ec2:us-east-1:351639416361:subnet/subnet-07e55bb98df767428",
+        "EnableDns64": false,
+        "Ipv6Native": false,
+        "PrivateDnsNameOptionsOnLaunch": {
+            "HostnameType": "ip-name",
+            "EnableResourceNameDnsARecord": false,
+            "EnableResourceNameDnsAAAARecord": false
+        }
+    }
+}
+
+
+C:\Users\alnada>aws ec2 create-tags --resources subnet-07e55bb98df767428  --tags Key=Name,Value=public subnet
+
+Error parsing parameter '--tags': Expected: '=', received: 'EOF' for input:
+subnet
+      ^
+
+C:\Users\alnada>aws ec2 create-tags --resources subnet-07e55bb98df767428  --tags Key=Name,Value=publicsubnet
+
+C:\Users\alnada>aws ec2 modify-subnet-attribute --subnet-id subnet-07e55bb98df767428  --map-public-ip-on-launch
+
+C:\Users\alnada>aws ec2 create-subnet --vpc-id vpc-00847c100e2bf3501  --cidr-block 10.0.2.0/23 --availability-zone us-east-1a
+{
+    "Subnet": {
+        "AvailabilityZone": "us-east-1a",
+        "AvailabilityZoneId": "use1-az6",
+        "AvailableIpAddressCount": 507,
+        "CidrBlock": "10.0.2.0/23",
+        "DefaultForAz": false,
+        "MapPublicIpOnLaunch": false,
+        "State": "available",
+        "SubnetId": "subnet-0ed4233782283d951",
+        "VpcId": "vpc-00847c100e2bf3501",
+        "OwnerId": "351639416361",
+        "AssignIpv6AddressOnCreation": false,
+        "Ipv6CidrBlockAssociationSet": [],
+        "SubnetArn": "arn:aws:ec2:us-east-1:351639416361:subnet/subnet-0ed4233782283d951",
+        "EnableDns64": false,
+        "Ipv6Native": false,
+        "PrivateDnsNameOptionsOnLaunch": {
+            "HostnameType": "ip-name",
+            "EnableResourceNameDnsARecord": false,
+            "EnableResourceNameDnsAAAARecord": false
+        }
+    }
+}
+
+
+C:\Users\alnada>aws ec2 create-tags --resources subnet-0ed4233782283d951  --tags Key=Name,Value=privatesubnet
+
+C:\Users\alnada>aws ec2 create-internet-gateway
+{
+    "InternetGateway": {
+        "Attachments": [],
+        "InternetGatewayId": "igw-0da1011aa4360efe1",
+        "OwnerId": "351639416361",
+        "Tags": []
+    }
+}
+
+
+C:\Users\alnada>
+C:\Users\alnada>aws ec2 create-tags --resources igw-0da1011aa4360efe1 --tags Key=Name,Value=labigw
+
+C:\Users\alnada>aws ec2 attach-internet-gateway --vpc-id vpc-00847c100e2bf3501 --internet-gateway-id igw-0da1011aa4360efe1
+
+C:\Users\alnada>aws ec2 create-tags --resources rtb-04c4fb09a56f663b9  --tags Key=Name,Value=PrivateRouteTable
+
+C:\Users\alnada>aws ec2 create-route-table --vpc-id vpc-00847c100e2bf3501
+{
+    "RouteTable": {
+        "Associations": [],
+        "PropagatingVgws": [],
+        "RouteTableId": "rtb-0dc53ff9f2d00fe48",
+        "Routes": [
+            {
+                "DestinationCidrBlock": "10.0.0.0/16",
+                "GatewayId": "local",
+                "Origin": "CreateRouteTable",
+                "State": "active"
+            }
+        ],
+        "Tags": [],
+        "VpcId": "vpc-00847c100e2bf3501",
+        "OwnerId": "351639416361"
+    },
+    "ClientToken": "50d99163-3c55-4ff7-b8b9-3979372e958c"
+}
+
+
+C:\Users\alnada>aws ec2 create-tags --resources rtb-0dc53ff9f2d00fe48  --tags Key=Name,Value=PublicRouteTable
+
+C:\Users\alnada>aws ec2 create-route --route-table-id rtb-0dc53ff9f2d00fe48 --destination-cidr-block 0.0.0.0/0 --gateway-id igw-0da1011aa4360efe1
+{
+    "Return": true
+}
+
+
+C:\Users\alnada>aws ec2 associate-route-table --subnet-id subnet-07e55bb98df767428  --route-table-id rtb-0dc53ff9f2d00fe48
+{
+    "AssociationId": "rtbassoc-0c8727b56fd5b159c",
+    "AssociationState": {
+        "State": "associated"
+    }
+}
+
+
+C:\Users\alnada>
